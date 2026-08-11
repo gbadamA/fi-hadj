@@ -19,6 +19,7 @@
 | **Cible** | Pèlerins, institutions gouvernementales, corps diplomatique, secteur privé, médias, ONG — 10 catégories (cahier §4) |
 | **Langue produit** | Français. Anglais et arabe **volontairement non commencés** (voir §9) |
 | **Emplacement** | `C:\dev\fi-hadj` — **hors OneDrive**, voir §8 |
+| **Dépôt** | [gbadamA/fi-hadj](https://github.com/gbadamA/fi-hadj) — **privé**, branche `main` |
 
 **Promesse produit :** un site qui a la tenue d'une institution diplomatique — sobre, dense, sans esbroufe —
 et un back-office où treize responsables travaillent chacun dans son périmètre sans se marcher dessus.
