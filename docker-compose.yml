@@ -1,0 +1,37 @@
+# Infrastructure locale FI-HADJ.
+#
+# ⚠️ Ports décalés volontairement : le 5432 du poste est déjà pris, et la stack
+# Supabase de mosquee-fitia occupe la plage 5413x. FI-HADJ prend 5432x / 802x.
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: fihadj_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: fihadj
+      POSTGRES_PASSWORD: fihadj
+      POSTGRES_DB: fihadj
+    ports:
+      - "54320:5432"
+    volumes:
+      - fihadj_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fihadj -d fihadj"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # Boîte aux lettres de développement : capte tous les mails transactionnels
+  # (confirmation d'inscription, badge, validation) sans rien envoyer dehors.
+  mail:
+    image: axllent/mailpit:latest
+    container_name: fihadj_mail
+    restart: unless-stopped
+    ports:
+      - "1026:1025" # SMTP
+      - "8026:8025" # interface web
+    environment:
+      MP_MAX_MESSAGES: 500
+
+volumes:
+  fihadj_pgdata:

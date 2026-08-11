@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+
+  /* Couleurs de marque en CANAUX RVB (et non en hex) : c'est ce qui permet à
+     Tailwind d'appliquer les modificateurs d'opacité — `bg-primary/10` reste
+     valide — tout en gardant les couleurs surchargeables à l'exécution. */
+  --c-primary: 15 61 107; /* #0F3D6B — bleu diplomatique */
+  --c-primary-hover: 11 46 82; /* #0B2E52 */
+  --c-secondary: 201 162 39; /* #C9A227 — or */
+  --c-secondary-hover: 169 135 28; /* #A9871C */
+  --c-tertiary: 46 124 184; /* #2E7CB8 — azur */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  font-family: var(--font-body), Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Texte arabe (Hadj, Oumrah, formules) — sens de lecture droite→gauche. */
+.arabic {
+  font-family: var(--font-arabic), Amiri, "Scheherazade New", serif;
+  direction: rtl;
+  unicode-bidi: isolate;
+}
+
+/* ===========================================================================
+   Motif géométrique islamique — trame discrète sur les surfaces en dégradé.
+   SVG en data-URI : aucun asset externe, aucune requête réseau, aucun risque
+   de bloc CSP sur une page servie ailleurs.
+   =========================================================================== */
+.pattern-islamic {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.13' stroke-width='1'%3E%3Cpath d='M36 0 L72 36 L36 72 L0 36 Z'/%3E%3Cpath d='M36 12 L60 36 L36 60 L12 36 Z'/%3E%3Ccircle cx='36' cy='36' r='11'/%3E%3Cpath d='M0 0 L72 72 M72 0 L0 72'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 72px 72px;
+}
+
+/* Filet doré horizontal — séparateur de section, l'or en accent rare. */
+.rule-gold {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(var(--c-secondary)) 30%,
+    rgb(var(--c-secondary)) 70%,
+    transparent 100%
+  );
+}
+
+/* ===========================================================================
+   Soulèvement des cartes au survol. Les champs de formulaire et les zones
+   défilantes en sont exclus : une carte se soulève, un champ de saisie non.
+   Respecte le réglage système « réduire les animations ».
+   =========================================================================== */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .lift {
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease,
+      border-color 0.18s ease;
+    will-change: transform;
+  }
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgb(var(--c-primary) / 0.2);
+  }
+}
+
+/* Anneau de focus visible partout — exigence d'accessibilité du cahier §8. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid rgb(var(--c-tertiary));
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Barre de défilement discrète dans les tableaux du back-office. */
+.scroll-slim::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.scroll-slim::-webkit-scrollbar-thumb {
+  background: rgb(var(--c-primary) / 0.25);
+  border-radius: 999px;
+}
+
+@media print {
+  .print\:hidden {
+    display: none !important;
+  }
+}

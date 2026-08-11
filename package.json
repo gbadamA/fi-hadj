@@ -1,0 +1,29 @@
+{
+  "name": "fi-hadj",
+  "version": "0.0.0",
+  "private": true,
+  "description": "FI-HADJ — Forum International du Hadj (Abidjan) : site public Next.js + API/backoffice NestJS",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "shared": "pnpm --filter @fihadj/shared-types build",
+    "api": "pnpm --filter @fihadj/api start:dev",
+    "web": "pnpm --filter @fihadj/web dev",
+    "prisma:migrate": "pnpm --filter @fihadj/api prisma:migrate",
+    "prisma:seed": "pnpm --filter @fihadj/api prisma:seed",
+    "prisma:studio": "pnpm --filter @fihadj/api prisma:studio",
+    "typecheck": "pnpm --filter @fihadj/shared-types build && pnpm --filter @fihadj/api typecheck && pnpm --filter @fihadj/web typecheck",
+    "build": "pnpm --filter @fihadj/shared-types build && pnpm --filter @fihadj/api build && pnpm --filter @fihadj/web build"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  },
+  "pnpm": {
+    "// onlyBuiltDependencies": "pnpm 10 n'exécute plus aucun script d'installation par défaut. Ces quatre-là en ont besoin : Prisma génère son client et ses moteurs, esbuild et sharp téléchargent un binaire natif.",
+    "onlyBuiltDependencies": ["@prisma/client", "@prisma/engines", "prisma", "esbuild", "sharp"]
+  }
+}
