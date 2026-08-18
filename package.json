@@ -13,6 +13,7 @@
     "shared": "pnpm --filter @fihadj/shared-types build",
     "api": "pnpm --filter @fihadj/api start:dev",
     "web": "pnpm --filter @fihadj/web dev",
+    "prisma:generate": "prisma generate",
     "prisma:migrate": "pnpm --filter @fihadj/api prisma:migrate",
     "prisma:seed": "pnpm --filter @fihadj/api prisma:seed",
     "prisma:studio": "pnpm --filter @fihadj/api prisma:studio",
