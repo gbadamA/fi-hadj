@@ -5,7 +5,7 @@
  * serveur peut joindre l'API par le réseau interne, sans repasser par le nom de
  * domaine public.
  */
-const API_URL = process.env.API_URL ?? "http://localhost:3051";
+const API_URL = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3051";
 
 /** Le contenu institutionnel change rarement : 60 s de cache suffisent. */
 const DEFAULT_REVALIDATE = 60;
